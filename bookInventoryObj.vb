@@ -59,6 +59,7 @@
         End Set
     End Property
 
+    ' pass in all the elements needed to build the book object.
     Public Sub New(firstname As String, lastname As String, Title As String, binding As bindingType, quantity As Integer)
         authorFirstName = firstname
         authorLastName = lastname

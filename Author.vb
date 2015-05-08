@@ -24,17 +24,4 @@
             lastname = value
         End Set
     End Property
-
-    'Public Sub New()
-    'End Sub
-
-    'Public Sub New(firstname As String, lastname As String)
-    'bookAuthor = firstname + lastname
-    'End Sub
-
-
-    'Public Overrides Function ToString() As String
-    '    (firstname +  "" + lastname)
-    'End Function
-
 End Class

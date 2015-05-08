@@ -4,14 +4,7 @@
     Dim book As bookInventoryObj
     'book inventory inherits authors
     Dim authors As Author
-    'Public Sub New(firstname As String, lastname As String, Title As String, binding As bindingType, quantity As Integer)
-    '    authorFirstName = firstname
-    '    authorLastName = lastname
-    '    titleOfbookFromUser = Title
-    '    coverType = binding
-    '    OnHand = quantity
-    'End Sub
-
+    
     '' this bookInventory will store the book objects as objects that have been created. 
     'this should allow to easily access it's properties to search by string for title or author. 
     Private bookInventory As List(Of bookInventoryObj) = New List(Of bookInventoryObj)
@@ -24,6 +17,8 @@
         ListBox1.Items.Add(testbook)
         Dim testBook2 As New bookInventoryObj("Tony", "Robbins", "Awaken the Giant Within", bookInventoryObj.bindingType.Paperback, 1)
         ListBox1.Items.Add(testBook2)
+
+        ' also add it to the newly created inventory list of objects. 
         bookInventory.Add(testbook)
         bookInventory.Add(testBook2)
 
@@ -77,57 +72,52 @@
         End Try
     End Function
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     ' work on this later. 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles searchButton.Click
-        Dim phrase As String = searchStringtxtBox.Text
-
+        
 
         ''ahhhhhh need to get the selected item and compare the two and see if they are the same. 
         Try
-            Dim selectedItem As Object = CType(ListBox1.SelectedItem, bookInventoryObj)
+            Dim phrase As String = searchStringtxtBox.Text
 
-        For selectedItem in ArrayList 
+            'Dim selectedItem As Object = CType(ListBox1.SelectedItem, bookInventoryObj)
+            For Each obj As Object In bookInventory
+
+
+                If obj.ToString.Contains(phrase) Then
+                    MessageBox.Show("yes!, " + obj.ToString + "is in the inventory ")
+                Else
+                    MessageBox.Show("No" + phrase + "is not in the inventory")
+                End If
                 'get the quantity, and adjust it by one. 
 
+            Next
 
+            'todo figure out how to search through a list box and checks its contents. May need to search the array list instead. 
+            '  For Each item As String In ListBox1
 
-                'todo figure out how to search through a list box and checks its contents. May need to search the array list instead. 
-                '  For Each item As String In ListBox1
+            '            If ListBox1.Contains() Then
+            ' add that item to an array list 
+            MessageBox.Show("here is what you were looking for:" + phrase)
+            '    ListBox1.SelectedItem.ToString()
+            'End If
 
-                '            If ListBox1.Contains() Then
-                ' add that item to an array list 
-                MessageBox.Show("here is what you were looking for:" + phrase)
-                '    ListBox1.SelectedItem.ToString()
-                'End If
-
-                'For Each item In ListBox1
+            'For Each item In ListBox1
         Catch ex As Exception
-            MessageBox.Show("Please select an item from the list box. Or problem getting listbox item. ")
+            ' not sure what other exceptions may be throw here 
+            MessageBox.Show("unknown Error : " + ex.Message)
         End Try
         'Next
     End Sub
 
     'use this function to check and see if the book inventory contains the user's search string 
-    Private Function searchFunction() As bookInventoryObj
+    'Private Function searchFunction() As bookInventoryObj
 
 
 
 
 
-    End Function
+    'End Function
 
     Private Sub authorFirstNametxtBox_Click(sender As Object, e As EventArgs) Handles authorFirstNametxtBox.Click
         authorFirstNametxtBox.Clear()
@@ -136,5 +126,16 @@
 
     Private Sub authorLastNametxtBox_Click(sender As Object, e As EventArgs) Handles authorLastNametxtBox.Click
         authorLastNametxtBox.Clear()
+    End Sub
+
+    Private Sub sellBookButton_Click(sender As Object, e As EventArgs) Handles sellBookButton.Click
+        Dim selectedIndex As Integer = ListBox1.SelectedIndex
+        If selectedIndex > 1 Then
+            MessageBox.Show("Please select an item from the list box")
+        End If
+    End Sub
+
+    Private Sub searchStringtxtBox_Click(sender As Object, e As EventArgs) Handles searchStringtxtBox.Click
+        searchStringtxtBox.Clear()
     End Sub
 End Class
