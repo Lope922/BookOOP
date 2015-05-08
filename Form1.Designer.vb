@@ -36,6 +36,7 @@ Partial Class Form1
         Me.authorLastNametxtBox = New System.Windows.Forms.TextBox()
         Me.sellBookButton = New System.Windows.Forms.Button()
         Me.searchStringtxtBox = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
@@ -66,7 +67,7 @@ Partial Class Form1
         '
         'bookTitletxtBox
         '
-        Me.bookTitletxtBox.Location = New System.Drawing.Point(66, 87)
+        Me.bookTitletxtBox.Location = New System.Drawing.Point(66, 94)
         Me.bookTitletxtBox.Name = "bookTitletxtBox"
         Me.bookTitletxtBox.Size = New System.Drawing.Size(100, 20)
         Me.bookTitletxtBox.TabIndex = 3
@@ -107,7 +108,7 @@ Partial Class Form1
         Me.ListBox1.Location = New System.Drawing.Point(258, 36)
         Me.ListBox1.MultiColumn = True
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(523, 173)
+        Me.ListBox1.Size = New System.Drawing.Size(457, 173)
         Me.ListBox1.TabIndex = 7
         '
         'quantityTxtBox
@@ -160,11 +161,22 @@ Partial Class Form1
         Me.searchStringtxtBox.TabIndex = 13
         Me.searchStringtxtBox.Text = "Author Or Title Search"
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(172, 9)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(384, 13)
+        Me.Label4.TabIndex = 14
+        Me.Label4.Text = "* If there are multiple Authors use firstname as 1st author lastname as 2nd autho" & _
+    "r"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(827, 292)
+        Me.ClientSize = New System.Drawing.Size(724, 292)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.searchStringtxtBox)
         Me.Controls.Add(Me.sellBookButton)
         Me.Controls.Add(Me.authorLastNametxtBox)
@@ -199,5 +211,6 @@ Partial Class Form1
     Friend WithEvents authorLastNametxtBox As System.Windows.Forms.TextBox
     Friend WithEvents sellBookButton As System.Windows.Forms.Button
     Friend WithEvents searchStringtxtBox As System.Windows.Forms.TextBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 
 End Class

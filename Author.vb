@@ -4,7 +4,7 @@
     Private firstname As String
     Private lastname As String
 
-    ' trying this out to initialize the author as a new author with a firstname and lastname  put together from to different variables. Why is this so hard. ????
+    ' trying this out to initialize the author as a new author with a firstname and lastname  put together from to different variables 
     Dim bookAuthor As String
 
     Property authorFirstName() As String
@@ -24,4 +24,9 @@
             lastname = value
         End Set
     End Property
+
+    'Private Sub New(firstname As String, lastname As String)
+
+    'End Sub
+    
 End Class

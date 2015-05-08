@@ -29,14 +29,15 @@
     Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
         Try
             'use the bookinventory class to construct the book. keep in mind this inherits author 
-            Dim auth As Author
+            Dim auth As New Author
 
             'TODO VALIDATION THAT THERE IS TEXT DATA IN ALL TEXT BOXES. FOR NOW ALL IS IN ONE TRY CATCH STATEMENT. 
             'VERIFY EACH TEXT BOX ENTRY TO LET USET KNOW WHAT INFORMATION IS MISISNG. 
-
+            auth.authorFirstName = authorFirstNametxtBox.Text
+            auth.authorLastName = authorLastNametxtBox.Text
             ' set author name equal to text box. 
-            Dim firstname As String = authorFirstNametxtBox.Text
-            Dim lastname As String = authorLastNametxtBox.Text
+            'Dim firstname As String = authorFirstNametxtBox.Text
+            'Dim lastname As String = authorLastNametxtBox.Text
 
 
             ' use this function to get the binding type that uses enumeration
@@ -47,10 +48,15 @@
             ' quantity is setup to me taken in as an integer. This will later be converted to a string.
             Dim quantity As Integer = CInt(quantityTxtBox.Text)
             ' next is constructing the book and adding it to the list with the to string override method. 
-            Dim book As New bookInventoryObj(firstname, lastname, titleOfBook, getBindingType(paperType_CheckBox, hardcover_TypeCheckBox), quantity)
+            Dim book As New bookInventoryObj(auth.authorFirstName, auth.authorLastName, titleOfBook, getBindingType(paperType_CheckBox, hardcover_TypeCheckBox), quantity)
+
             'trying to add the new book object built to the list box. 
             ListBox1.Items.Add(book.ToString)
 
+            'also the inventory 
+            bookInventory.Add(book)
+
+            ' basic error message. TODO WRITE A FUNCTION TO THECK EACH TEXT BOX FOR SPECIFIC RESONPSES. tHEN ALLOW THIS CATCH BLOCK FOR ANY OTHER UNKONW ERRORS. 
         Catch _missingInfo As Exception
             MessageBox.Show("Please make sure you have entered all author data", "Missing User input", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End Try
@@ -89,6 +95,7 @@
                 Else
                     MessageBox.Show("No" + phrase + "is not in the inventory")
                 End If
+
                 'get the quantity, and adjust it by one. 
 
             Next
@@ -99,10 +106,8 @@
             '            If ListBox1.Contains() Then
             ' add that item to an array list 
             MessageBox.Show("here is what you were looking for:" + phrase)
-            '    ListBox1.SelectedItem.ToString()
-            'End If
 
-            'For Each item In ListBox1
+
         Catch ex As Exception
             ' not sure what other exceptions may be throw here 
             MessageBox.Show("unknown Error : " + ex.Message)
@@ -129,13 +134,53 @@
     End Sub
 
     Private Sub sellBookButton_Click(sender As Object, e As EventArgs) Handles sellBookButton.Click
-        Dim selectedIndex As Integer = ListBox1.SelectedIndex
-        If selectedIndex > 1 Then
-            MessageBox.Show("Please select an item from the list box")
-        End If
+        Try
+            ' this selected index will tell us if there is a valid selection. 
+            Dim selectedobj As bookInventoryObj = CType(ListBox1.SelectedItem, bookInventoryObj)
+            Dim selectedIndex As Integer = ListBox1.SelectedIndex
+
+
+
+            If selectedIndex = -1 Then
+                MessageBox.Show("Please select an item from the list box")
+            Else : adjustQuantity(selectedobj, bookInventory)
+            End If
+
+        Catch ex As InvalidCastException
+            MessageBox.Show("Error Message: Unknown error 1:" + ex.Message, "Error : 1", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
     End Sub
 
     Private Sub searchStringtxtBox_Click(sender As Object, e As EventArgs) Handles searchStringtxtBox.Click
         searchStringtxtBox.Clear()
     End Sub
+
+    ' in order to adjust the quantity i will need to pass the list of bookObjects into this sub method to try and access the quantity to be able to adjust it. 
+    Private Sub adjustQuantity(selectedObject As bookInventoryObj, listofInventory As List(Of bookInventoryObj))
+        'get the book quantity, and remove one book, 
+        Dim quantity As Integer
+        'For Each obj As bookInventoryObj In bookInventory
+        quantity = selectedObject.Quantity
+        MessageBox.Show("Here is the quantity property" + quantity.ToString)
+        'Next
+
+        ' now that i have gotten the quantity property i need to check to see if it is 1. 
+        Try
+            If quantity = 0 Then
+                ListBox1.Items.Remove(selectedObject)
+            Else
+                quantity = quantity - 1
+            End If
+            ' this adjusts the quantity but not the list of the inventory. ??? GOT THIS FAR BUT MOVING ONTO FINAL PROJECT. 
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+        ' If the quantity is 1 remove the object from the inventory as well as the arraylist. 
+
+
+
+
+    End Sub
+
 End Class

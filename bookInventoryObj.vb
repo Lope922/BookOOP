@@ -1,6 +1,4 @@
 ﻿Public Class bookInventoryObj
-
-
     Inherits Author
     'use the book author 
 
@@ -8,7 +6,7 @@
 
 
 
-    Dim bookAuthors As String
+    Dim bookAuthors As Author
 
     ' string variable to store the book title 
     Dim titleOfbookFromUser As String
@@ -63,6 +61,7 @@
     Public Sub New(firstname As String, lastname As String, Title As String, binding As bindingType, quantity As Integer)
         authorFirstName = firstname
         authorLastName = lastname
+
         titleOfbookFromUser = Title
         coverType = binding
         OnHand = quantity
